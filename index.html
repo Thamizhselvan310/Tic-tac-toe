@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <table id="table" border="1" cellpadding='20px' style="height: 300px;width: 300px;">
+        <tr>
+            <td id="1"></td>
+            <td id="2"></td>
+            <td id="3"></td>
+        </tr>
+        <tr>
+            <td id="4"></td>
+            <td id="5"></td>
+            <td id="6"></td>
+        </tr>
+        <tr>
+            <td id="7"></td>
+            <td id="8"></td>
+            <td id="9"></td>
+        </tr>
+    </table>
+    <div id="content"></div>
+    <script>
+
+        var check = [
+            [1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]
+        ];
+        var xarr = [];
+        var oarr = [];
+        var arr = [];
+        var click = 1;
+        
+        document.getElementById("table").addEventListener('click', function (key) {
+            if (click == 1 && key.target.innerHTML.length == 0) {
+                key.target.innerHTML = "X";
+                xarr.push(parseInt(key.target.id));
+                if (xarr.length >= 3)
+                    win();
+
+                click = 0;
+            }
+            else {
+                if (key.target.innerHTML.length == 0) {
+                    key.target.innerHTML = "O";
+                    oarr.push(parseInt(key.target.id));
+                    if (oarr.length >= 3)
+                        win();
+                    click = 1;
+                }
+
+            }
+        })
+        function win() {
+            if (click == 1)
+                arr = xarr;
+            else
+                arr = oarr;
+            for (i = 0; i < check.length; i++) {
+
+                if (arr.includes(check[i][0]) && arr.includes(check[i][1]) && arr.includes(check[i][2])) {
+                    if (arr == xarr) {
+                        document.getElementById("content").innerHTML = "X wins";
+                        console.log(arr)
+                    }
+
+                    else {
+
+                        console.log(arr)
+                        document.getElementById("content").innerHTML = "O wins"
+                    }
+
+                }
+                if(xarr.length+oarr.length==9){
+                    document.getElementById("content").innerHTML="draw"
+                }
+            }
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
